@@ -1,8 +1,8 @@
 import numpy as np # Import numpy and write np.random
 def game_core_v2(number):
     count = 1
-    min_value = 0
-    max_value = 100
+    min_value = 1
+    max_value = 101
     predict =  (min_value + max_value) // 2 # calculation algorithm
     while number != predict:
         count+=1
@@ -15,7 +15,7 @@ def game_core_v2(number):
 def score_game(game_core_v2):
     count_2 = []
     np.random.seed(1)  # fix to self-reproduce
-    random_array = np.random.randint(1, 100, size=(1000))
+    random_array = np.random.randint(1, 101, size=(1000))
     for number in random_array:
         count_2.append(game_core_v2(number))
     score = int(np.mean(count_2))
