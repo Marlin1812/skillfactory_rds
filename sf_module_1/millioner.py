@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 240,
+   "execution_count": 1,
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5"
@@ -12,7 +12,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "['.ipynb_checkpoints', 'Api vk.ipynb.txt', 'API_IT.NET.USER.ZS_DS2_en_csv_v2_889089.csv', 'Clear Date.ipynb', 'data', 'data.csv', 'data.json', 'data_sf.csv', 'Game.ipynb', 'Hello World.ipynb', 'log.csv', 'Matrix.ipynb', 'Merge table.ipynb', 'Metadata_Country_API_IT.NET.USER.ZS_DS2_en_csv_v2_889089.csv', 'Metadata_Indicator_API_IT.NET.USER.ZS_DS2_en_csv_v2_889089.csv', 'movies.csv', 'movies_example.txt', 'Pandas.ipynb', 'Pandas2.ipynb', 'Projeсt Millioner.ipynb', 'Python A3 (23.02.2020).ipynb', 'Python B1-B3 (08.03.2020).ipynb', 'Python B5-B6 (21.03.2020).ipynb', 'ratings.csv', 'ratings_example.txt', 'sample.csv', 'Star Trek.ipynb', 'users.csv', '[SF-DST] Movies IMBD v3.0.ipynb', '[SF-DST] Movies IMBD v3.0.py', 'Введение_в_программирование_циклы.ipynb', 'вводный урок (3).ipynb', 'вводный урок.txt', 'Знакомство с pandas (3).txt', 'Знакомство с pandas.txt', 'парсинг сайтов.ipynb', 'Строки, файлы и регулярные выражения.ipynb', 'Строки.ipynb', 'функции в python.ipynb.txt', 'что такое список.ipynb']\n"
+      "['.ipynb_checkpoints', 'Api vk.ipynb.txt', 'API_IT.NET.USER.ZS_DS2_en_csv_v2_889089.csv', 'Clear Date.ipynb', 'data', 'data.csv', 'data.json', 'data_sf.csv', 'Game.ipynb', 'Hello World.ipynb', 'log.csv', 'Matrix.ipynb', 'Merge table.ipynb', 'Metadata_Country_API_IT.NET.USER.ZS_DS2_en_csv_v2_889089.csv', 'Metadata_Indicator_API_IT.NET.USER.ZS_DS2_en_csv_v2_889089.csv', 'movies.csv', 'movies_example.txt', 'Pandas.ipynb', 'Pandas2.ipynb', 'Projeсt Millioner.ipynb', 'Python A3 (23.02.2020).ipynb', 'Python B1-B3 (08.03.2020).ipynb', 'Python B5-B6 (21.03.2020).ipynb', 'Python-B6 .ipynb', 'ratings.csv', 'ratings_example.txt', 'sample.csv', 'Star Trek.ipynb', 'users.csv', '[SF-DST] Movies IMBD v3.0.ipynb', '[SF-DST] Movies IMBD v3.0.py', 'Введение_в_программирование_циклы.ipynb', 'вводный урок (3).ipynb', 'вводный урок.txt', 'Знакомство с pandas (3).txt', 'Знакомство с pandas.txt', 'парсинг сайтов.ipynb', 'Строки, файлы и регулярные выражения.ipynb', 'Строки.ipynb', 'функции в python.ipynb.txt', 'что такое список.ipynb']\n"
      ]
     }
    ],
@@ -861,7 +861,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 243,
+   "execution_count": 30,
    "metadata": {},
    "outputs": [
     {
@@ -887,7 +887,7 @@
        "dtype: int64"
       ]
      },
-     "execution_count": 243,
+     "execution_count": 30,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1191,27 +1191,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 120,
+   "execution_count": 41,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "Peter Jackson        5202593685\n",
-       "David Yates          3379295625\n",
-       "Christopher Nolan    3162548502\n",
-       "J.J. Abrams          2839169916\n",
-       "Michael Bay          2760938960\n",
-       "                        ...    \n",
-       "Peter Hyams           -86956545\n",
-       "Ron Underwood         -92896027\n",
-       "James L. Brooks       -96289726\n",
-       "Walter Hill          -128283462\n",
-       "Sngmoo Lee           -413912431\n",
-       "Length: 998, dtype: int64"
+       "Peter Jackson    5202593685\n",
+       "dtype: int64"
       ]
      },
-     "execution_count": 120,
+     "execution_count": 41,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1222,7 +1212,7 @@
     "directors = set(data.director.str.split('|').sum())\n",
     "name_dir = pd.Series({x:data[data.director.str.contains(x)].profit.sum() \n",
     "for x in directors}).sort_values(ascending = False)\n",
-    "name_dir"
+    "name_dir.head(1)"
    ]
   },
   {
@@ -1249,27 +1239,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 290,
+   "execution_count": 40,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "Emma Watson           6666245597\n",
-       "Daniel Radcliffe      6514990281\n",
-       "Rupert Grint          6408638290\n",
-       "Ian McKellen          6087375777\n",
-       "Robert Downey Jr.     5316030161\n",
-       "                         ...    \n",
-       "Elisabeth Harnois     -111007242\n",
-       "Emilio EchevarrÃ­a    -119180039\n",
-       "Kate Bosworth         -369455668\n",
-       "Jang Dong-gun         -413912431\n",
-       "Ti Lung               -413912431\n",
-       "Length: 3408, dtype: int64"
+       "Emma Watson    6666245597\n",
+       "dtype: int64"
       ]
      },
-     "execution_count": 290,
+     "execution_count": 40,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1280,7 +1260,7 @@
     "actors = set(data.cast.str.split('|').sum())\n",
     "name_actor = pd.Series({x:data[data.cast.str.contains(x)].profit.sum() \n",
     "for x in actors}).sort_values(ascending = False)\n",
-    "name_actor"
+    "name_actor.head(1)"
    ]
   },
   {
@@ -1587,26 +1567,19 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 307,
+   "execution_count": 44,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Columbia Pictures        2501406608\n",
-      "Universal                1981011579\n",
-      "Universal Pictures       1981011579\n",
-      "Twentieth Century Fox    1508921607\n",
-      "Marvel Studios           1299557910\n",
-      "                            ...    \n",
-      "Transfilm                 -51893525\n",
-      "Onyx Films                -51893525\n",
-      "Jouror Productions        -51893525\n",
-      "CinÃ©+                    -70341621\n",
-      "France 2 CinÃ©ma          -82545651\n",
-      "Length: 1772, dtype: int64\n"
-     ]
+     "data": {
+      "text/plain": [
+       "Columbia Pictures    2501406608\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
@@ -1614,9 +1587,9 @@
     "data['profit'] = data.revenue - data.budget\n",
     "companies = set(data.production_companies.str.split('|').sum())\n",
     "date = data[(data.release_year == 2012)]\n",
-    "companies = pd.Series({x: date[date.production_companies.str.contains(x)].profit.sum()\n",
+    "company = pd.Series({x: date[date.production_companies.str.contains(x)].profit.sum()\n",
     "for x in companies}).sort_values(ascending = False)\n",
-    "print(companies)"
+    "company.head(1)"
    ]
   },
   {
@@ -1887,23 +1860,26 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 50,
+   "execution_count": 48,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[(9, 227)]\n"
-     ]
+     "data": {
+      "text/plain": [
+       "[(9, 227)]"
+      ]
+     },
+     "execution_count": 48,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
     "data = pd.read_csv(\"data.csv\")\n",
     "data['release_date'] = pd.to_datetime(data['release_date'])\n",
     "date_m = data['release_date'].dt.month\n",
-    "counter = collections.Counter(date_m)\n",
-    "print(counter.most_common(1))"
+    "quantity = collections.Counter(date_m)\n",
+    "quantity.most_common(1)"
    ]
   },
   {
@@ -1930,15 +1906,18 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 252,
+   "execution_count": 63,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Counter({False: 1440, True: 450})\n"
-     ]
+     "data": {
+      "text/plain": [
+       "Counter({True: 450, False: 1440})"
+      ]
+     },
+     "execution_count": 63,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
@@ -1946,8 +1925,8 @@
     "import collections\n",
     "data['release_date'] = pd.to_datetime(data['release_date'])\n",
     "date_m = data['release_date'].dt.month.isin([6,7,8])\n",
-    "counter = collections.Counter(date_m)\n",
-    "print(counter)"
+    "quantity = collections.Counter(date_m)\n",
+    "quantity"
    ]
   },
   {
@@ -2290,7 +2269,7 @@
     }
    ],
    "source": [
-    "#data = pd.read_csv(\"data.csv\")\n",
+    "data = pd.read_csv(\"data.csv\")\n",
     "from itertools import combinations #запускаем intertools combinations\n",
     "combi = [] #создаем список\n",
     "for actor in data.cast:\n",
