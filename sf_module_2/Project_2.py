@@ -57,7 +57,7 @@
 
 # Необходимые для работы библиотеки
 
-# In[720]:
+# In[2]:
 
 
 import pandas as pd
@@ -70,7 +70,7 @@ from scipy.stats import ttest_ind
 import math
 
 
-# In[721]:
+# In[3]:
 
 
 from jupyterthemes import jtplot
@@ -78,7 +78,7 @@ jtplot.style(theme='chesterish', context='notebook', fscale=1.7, ticks=True,
              figsize=(8, 6.5))
 
 
-# In[722]:
+# In[4]:
 
 
 # Загрузка датасета
@@ -86,7 +86,7 @@ jtplot.style(theme='chesterish', context='notebook', fscale=1.7, ticks=True,
 ds = pd.read_csv('stud_math.csv')
 
 
-# In[723]:
+# In[5]:
 
 
 # увеличим количество вывода строк и колонок
@@ -98,14 +98,14 @@ pd.set_option('display.max_columns', 35)
 sns.set(style="whitegrid")
 
 
-# In[724]:
+# In[99]:
 
 
 # проверим успешно ли импортируются данные и сделаем краткие выводы
 display(ds.head(3))
 
 
-# In[725]:
+# In[7]:
 
 
 # все столбцы считались корректно
@@ -121,14 +121,14 @@ ds.info()
 # оценочных - тринадцать (по несколько значений): Medu, Fedu, Mjob, Fjob, reason, guardian, traveltime, studytime, failures, famrel, freetime, goout, health
 # прочие - один: studytime, granular (отсутствует в описании к датасету, имеет отрицательные значения)
 
-# In[726]:
+# In[8]:
 
 
 # посмотрим наименования колонок
 ds.columns
 
 
-# In[727]:
+# In[9]:
 
 
 # переименуем, для удобства, колонки начинающиеся с большой буквы на маленькую
@@ -137,7 +137,7 @@ ds.rename(columns={'Pstatus': 'pstatus', 'Medu': 'medu', 'Fedu': 'fedu',
                    'Mjob': 'mjob', 'Fjob': 'fjob', 'studytime, granular': 'studytime_g'}, inplace=True)
 
 
-# In[728]:
+# In[100]:
 
 
 # выведим и проверим названия колонок
@@ -148,14 +148,14 @@ display(ds.head(3))
 
 # school — школы, в которых учатся ученики
 
-# In[729]:
+# In[11]:
 
 
 # проверим сколько и каких значений содержит колонка
 pd.DataFrame(ds.school.value_counts())
 
 
-# In[730]:
+# In[12]:
 
 
 ds.loc[:, ['school']].info()
@@ -166,13 +166,13 @@ ds.loc[:, ['school']].info()
 
 # age — возраст учеников (от 15 до 22)
 
-# In[731]:
+# In[13]:
 
 
 ds.age.hist()
 
 
-# In[732]:
+# In[14]:
 
 
 # кажется что пропущены какие-то значения между 17-18 и 19-20
@@ -182,14 +182,14 @@ ds.age.value_counts()
 
 # пропуски отсутствуют
 
-# In[733]:
+# In[15]:
 
 
 # построим box-plot чтобы проверить на наличие выбросов
 sns.boxplot(data=ds.age)
 
 
-# In[734]:
+# In[16]:
 
 
 # boxp-lot предлагает выкинуть выброс возраста 22
@@ -220,14 +220,14 @@ plt.legend()
 
 # граница выброса действительно на 21
 
-# In[735]:
+# In[17]:
 
 
 # удаляем значение 22
 ds.loc[ds['age'] == 22.0, 'age'] = np.nan
 
 
-# In[736]:
+# In[18]:
 
 
 # построим box-plot чтобы убедится что выбросов нет
@@ -238,7 +238,7 @@ sns.boxplot(data=ds.age)
 # выбросов нет (значение 22 удалено)
 # большинство учеников в возрасте 16-17 лет
 
-# In[737]:
+# In[19]:
 
 
 # посмотрим какая связь между возрастом и успеваимостью
@@ -250,13 +250,13 @@ display(pd.DataFrame(ds.groupby(['age']).score.agg(
 
 # medu — образование матери (0 - нет, 1 - 4 класса, 2 - 5-9 классы, 3 - среднее специальное или 11 классов, 4 - высшее)
 
-# In[738]:
+# In[20]:
 
 
 pd.DataFrame(ds.medu.value_counts())
 
 
-# In[739]:
+# In[21]:
 
 
 ds.loc[:, ['medu']].info()
@@ -268,7 +268,7 @@ ds.loc[:, ['medu']].info()
 
 # fedu — образование отца (0 - нет, 1 - 4 класса, 2 - 5-9 классы, 3 - среднее специальное или 11 классов, 4 - высшее)
 
-# In[740]:
+# In[22]:
 
 
 pd.DataFrame(ds.fedu.value_counts())
@@ -277,14 +277,14 @@ pd.DataFrame(ds.fedu.value_counts())
 # есть одно значение которое отсутствует в описании датасета 40.0
 # похоже на ошибку при внесении информации
 
-# In[741]:
+# In[23]:
 
 
 # заменим его на правильное значение 4.0
 ds.loc[ds['fedu'] == 40.0, 'fedu'] = 4.0
 
 
-# In[742]:
+# In[24]:
 
 
 # проверим
@@ -296,13 +296,13 @@ pd.DataFrame(ds.fedu.value_counts())
 
 # mjob — работа матери ('teacher' - учитель, 'health' - сфера здравоохранения, 'services' - гос служба, 'at_home' - не работает, 'other' - другое)
 
-# In[743]:
+# In[25]:
 
 
 pd.DataFrame(ds.mjob.value_counts())
 
 
-# In[744]:
+# In[26]:
 
 
 ds.loc[:, ['mjob']].info()
@@ -314,13 +314,13 @@ ds.loc[:, ['mjob']].info()
 
 # fjob — работа отца ('teacher' - учитель, 'health' - сфера здравоохранения, 'services' - гос служба, 'at_home' - не работает, 'other' - другое)
 
-# In[745]:
+# In[27]:
 
 
 pd.DataFrame(ds.fjob.value_counts())
 
 
-# In[746]:
+# In[28]:
 
 
 ds.loc[:, ['fjob']].info()
@@ -335,13 +335,13 @@ ds.loc[:, ['fjob']].info()
 
 # reason — причина выбора школы ('home' - близость к дому, 'reputation' - репутация школы, 'course' - образовательная программа, 'other' - другое)
 
-# In[747]:
+# In[29]:
 
 
 pd.DataFrame(ds.reason.value_counts())
 
 
-# In[748]:
+# In[30]:
 
 
 ds.loc[:, ['reason']].info()
@@ -353,13 +353,13 @@ ds.loc[:, ['reason']].info()
 
 # guardian — опекун ('mother' - мать, 'father' - отец, 'other' - другое)
 
-# In[749]:
+# In[31]:
 
 
 pd.DataFrame(ds.guardian.value_counts())
 
 
-# In[750]:
+# In[32]:
 
 
 ds.loc[:, ['guardian']].info()
@@ -373,13 +373,13 @@ ds.loc[:, ['guardian']].info()
 
 # traveltime — время в пути до школы (1 - <15 мин., 2 - 15-30 мин., 3 - 30-60 мин., 4 - >60 мин.)
 
-# In[751]:
+# In[33]:
 
 
 pd.DataFrame(ds.traveltime.value_counts())
 
 
-# In[752]:
+# In[34]:
 
 
 ds.loc[:, ['traveltime']].info()
@@ -393,7 +393,7 @@ ds.loc[:, ['traveltime']].info()
 
 # studytime — время на учёбу помимо школы в неделю (1 - <2 часов, 2 - 2-5 часов, 3 - 5-10 часов, 4 - >10 часов) + studytime_g
 
-# In[753]:
+# In[35]:
 
 
 # посмотрим на значения этих колонок
@@ -402,7 +402,7 @@ ds.loc[:, ['studytime', 'studytime_g']]
 
 # прослеживается взаимосвязь между значениями этих колонок 
 
-# In[754]:
+# In[36]:
 
 
 # посмотрим распределение значений этих столбцов
@@ -410,7 +410,7 @@ display(pd.DataFrame(ds.studytime.value_counts()),
         pd.DataFrame(ds.studytime_g.value_counts()))
 
 
-# In[755]:
+# In[37]:
 
 
 # проверим корреляцию двух столбцов
@@ -419,7 +419,7 @@ ds['studytime'].corr(ds['studytime_g'])
 
 # присутствует 100% обратная корреляция между значениями studytime и studytime_g
 
-# In[756]:
+# In[38]:
 
 
 # проведем дальнейший анализ studytime (studytime_g пока не будем, так как его нет в описательной части датасета)
@@ -434,7 +434,7 @@ ds.loc[:, ['studytime']].info()
 
 # failures — количество внеучебных неудач (n, если 1<=n<3, иначе 0)
 
-# In[757]:
+# In[39]:
 
 
 pd.DataFrame(ds.failures.value_counts())
@@ -443,7 +443,7 @@ pd.DataFrame(ds.failures.value_counts())
 # содержит четыре уникальных значения, но не соответствуют значениям указанным в датасете (n, если 1<=n<3, иначе 4)
 # видимо в описании закралась ошибка, оставляем так как есть (без значения 4)
 
-# In[758]:
+# In[40]:
 
 
 ds.loc[:, ['failures']].info()
@@ -454,7 +454,7 @@ ds.loc[:, ['failures']].info()
 
 # famrel — семейные отношения (от 1 - очень плохо до 5 - очень хорошо)
 
-# In[759]:
+# In[41]:
 
 
 pd.DataFrame(ds.famrel.value_counts())
@@ -463,21 +463,21 @@ pd.DataFrame(ds.famrel.value_counts())
 # одно значение отсутствует в описании датасет -1.0
 # скорее всего это ошибка при внесении информации
 
-# In[760]:
+# In[42]:
 
 
 # заменим его на 1.0
 ds.loc[ds['famrel'] == -1.0, 'famrel'] = 1.0
 
 
-# In[761]:
+# In[43]:
 
 
 # проверим
 pd.DataFrame(ds.famrel.value_counts())
 
 
-# In[762]:
+# In[44]:
 
 
 ds.loc[:, ['famrel']].info()
@@ -489,13 +489,13 @@ ds.loc[:, ['famrel']].info()
 
 # freetime - свободное время после школы (от 1 - очень мало до 5 - очень мого)
 
-# In[763]:
+# In[45]:
 
 
 pd.DataFrame(ds.freetime.value_counts())
 
 
-# In[764]:
+# In[46]:
 
 
 ds.loc[:, ['freetime']].info()
@@ -507,13 +507,13 @@ ds.loc[:, ['freetime']].info()
 
 # goout — проведение времени с друзьями (от 1 - очень мало до 5 - очень много)
 
-# In[765]:
+# In[47]:
 
 
 pd.DataFrame(ds.goout.value_counts())
 
 
-# In[766]:
+# In[48]:
 
 
 ds.loc[:, ['goout']].info()
@@ -525,13 +525,13 @@ ds.loc[:, ['goout']].info()
 
 # health — текущее состояние здоровья (от 1 - очень плохо до 5 - очень хорошо)
 
-# In[767]:
+# In[49]:
 
 
 pd.DataFrame(ds.health.value_counts())
 
 
-# In[768]:
+# In[50]:
 
 
 ds.loc[:, ['health']].info()
@@ -543,20 +543,20 @@ ds.loc[:, ['health']].info()
 
 # absences — количество пропущенных занятий
 
-# In[769]:
+# In[51]:
 
 
 ds.absences.hist()
 
 
-# In[770]:
+# In[52]:
 
 
 # построим box-plot чтобы проверить на наличие выбросов
 sns.boxplot(data=ds.absences)
 
 
-# In[771]:
+# In[53]:
 
 
 # проведем анализ границ и расчитаем их значения, чтобы определить границу возможного выброса
@@ -587,14 +587,14 @@ plt.legend()
 # очень похоже на ассимитричное распределение
 # проверим это, добавим к распределению небольшую погрешность смещения
 
-# In[772]:
+# In[54]:
 
 
 f = 0.001
 absences_n = ds.absences.apply(lambda x: math.log(x+f))
 
 
-# In[773]:
+# In[55]:
 
 
 # построим box-plot чтобы проверить на наличие выбросов
@@ -604,7 +604,7 @@ sns.boxplot(data=absences_n)
 # выбросов нет 
 # удалять ничего не будем
 
-# In[774]:
+# In[56]:
 
 
 ds.absences.describe()
@@ -616,7 +616,7 @@ ds.absences.describe()
 
 # score — баллы по госэкзамену по математике
 
-# In[775]:
+# In[57]:
 
 
 ds.score.hist()
@@ -625,14 +625,14 @@ ds.score.hist()
 # на первый взгляд cлевапотенциальный выброс
 # 
 
-# In[776]:
+# In[58]:
 
 
 # построим box-plot чтобы проверить на наличие выбросов
 sns.boxplot(data=ds.score)
 
 
-# In[777]:
+# In[59]:
 
 
 # сделаем анализ границ и расчитаем их точные значения на предмет возможных выбросов
@@ -660,7 +660,7 @@ ds.score.loc[ds.score.between(perc25 - 1.5*IQR, perc75 + 1.5*IQR)].hist(bins=21,
 plt.legend()
 
 
-# In[778]:
+# In[60]:
 
 
 ds.score.value_counts()
@@ -668,26 +668,26 @@ ds.score.value_counts()
 
 # много нулевых значений 37
 
-# In[779]:
+# In[61]:
 
 
 # посмотрим на распределение без нулевых значений
 score_n = ds.score.apply(lambda x: x if x > 0 else np.nan)
 
 
-# In[780]:
+# In[62]:
 
 
 score_n.hist(bins=10)
 
 
-# In[781]:
+# In[96]:
 
 
-sns.distplot(score_n, bins=15)
+sns.distplot(score_n, bins=10)
 
 
-# In[782]:
+# In[64]:
 
 
 # сделаем анализ границ и расчитаем их точные значения
@@ -718,21 +718,21 @@ plt.legend()
 # скорее всего при внесении данных возникли ошибки - нулевые значения, и данные значения присутствует в достаточно большом количестве 37 
 # так как у нас модель должна прогнозировать группу риска, то заменим нулевые значения на минимальное значение 10.0 (миниммальная оценка не попадающая в выбросы), таким образом мы расширяем потенциальную группу риска
 
-# In[783]:
+# In[65]:
 
 
 # заменим нулевые значения на минимальное значение 10.0
 ds.loc[ds['score'] == 0.0, 'score'] = 10.0
 
 
-# In[784]:
+# In[66]:
 
 
 # проверим
 ds.score.value_counts()
 
 
-# In[785]:
+# In[67]:
 
 
 ds.score.hist(bins=10)
@@ -744,7 +744,7 @@ ds.score.hist(bins=10)
 
 # проанализируем группу категориальных признаков
 
-# In[786]:
+# In[68]:
 
 
 list_n = []
@@ -753,7 +753,7 @@ bin_columns = ['address', 'famsize', 'pstatus',
                'nursery', 'higher', 'internet', 'romantic']
 
 
-# In[787]:
+# In[69]:
 
 
 for elem in bin_columns:
@@ -767,7 +767,7 @@ for elem in bin_columns:
 list_n
 
 
-# In[788]:
+# In[70]:
 
 
 list_n[5] = ['yes', 'no']
@@ -776,7 +776,7 @@ list_n
 
 # ошибок в написании возможных вариантов значений нет
 
-# In[789]:
+# In[71]:
 
 
 # приведем yes и no к единообразию
@@ -786,14 +786,14 @@ list_n[6] = ['yes', 'no']
 list_n[10] = ['yes', 'no']
 
 
-# In[790]:
+# In[72]:
 
 
 # проверяем
 list_n
 
 
-# In[791]:
+# In[73]:
 
 
 # заменяем
@@ -803,7 +803,7 @@ for i in range(len(bin_columns)):
     ds.loc[ds[elem] == list_n[i][1], elem] = 0.0
 
 
-# In[792]:
+# In[74]:
 
 
 # проверяем
@@ -819,7 +819,7 @@ for elem in bin_columns:
 list_n
 
 
-# In[793]:
+# In[75]:
 
 
 # ошибок нет
@@ -827,20 +827,20 @@ list_n
 ds[bin_columns].describe()
 
 
-# In[794]:
+# In[76]:
 
 
 temp = ds[bin_columns].describe()
 
 
-# In[795]:
+# In[77]:
 
 
 # расчитаем кол-во пропущенных значений
 395-temp.T['count']
 
 
-# In[796]:
+# In[78]:
 
 
 # для критериев с пропусками больше 10 выведем частоту встречаемости значений
@@ -858,19 +858,19 @@ ds.pivot_table(['address', 'famsize', 'pstatus', 'famsup', 'paid', 'activities',
 # выясним какие колонки лучше всего коррелируют со score
 # это поможет определить, какие параметры стоит оставить для модели, а какие — исключить
 
-# In[797]:
+# In[79]:
 
 
 ds_num = ds[['age', 'absences', 'score']]
 
 
-# In[798]:
+# In[80]:
 
 
 sns.pairplot(ds_num, kind='reg')
 
 
-# In[799]:
+# In[81]:
 
 
 # матрица корреляций:
@@ -883,7 +883,7 @@ ds_num.corr()
 # категориальные переменные
 # посмотрим различаются ли распределения в зависимости от значения этих переменных
 
-# In[800]:
+# In[82]:
 
 
 # для удобства составим списки этих значений
@@ -898,7 +898,7 @@ all_columns.extend(rating_columns)
 
 # анализ категориальных переменных
 
-# In[801]:
+# In[83]:
 
 
 def get_boxplot(column):
@@ -912,7 +912,7 @@ def get_boxplot(column):
     plt.show()
 
 
-# In[802]:
+# In[84]:
 
 
 # box-plot категорийных
@@ -928,7 +928,7 @@ for col in bin_columns:
 
 # анализ оценочных категориальных переменных
 
-# In[803]:
+# In[85]:
 
 
 def get_boxplot(column):
@@ -942,7 +942,7 @@ def get_boxplot(column):
     plt.show()
 
 
-# In[804]:
+# In[86]:
 
 
 # box plot для оценочных
@@ -965,7 +965,7 @@ for col in rating_columns:
 # проверим, есть ли статистическая разница в распределении оценок по всем категориальным признакам 
 # проверим нулевую гипотезу о том,что распределения score по различным параметрам одинаковы
 
-# In[814]:
+# In[87]:
 
 
 def get_stat_dif(column):
@@ -981,7 +981,7 @@ def get_stat_dif(column):
             break
 
 
-# In[815]:
+# In[88]:
 
 
 for elem in all_columns:
@@ -991,28 +991,28 @@ for elem in all_columns:
 # достаточно отличаются 8 параметров: address, schoolsup, higher, romantic, medu, mjob, failures, goout оставим эти переменные в датасете
 # всего получилось 10 переменных , которые возможно оказывают влияние на score: age, absences, address, schoolsup, higher, romantic, medu, mjob, failures, goout
 
-# In[818]:
+# In[89]:
 
 
 ds_model = ds.loc[:, ['age', 'absences', 'address', 'schoolsup',
                       'higher', 'romantic', 'medu', 'mjob', 'failures', 'goout', 'score']]
 
 
-# In[819]:
+# In[90]:
 
 
 # проверяем
 ds_model.head(3)
 
 
-# In[820]:
+# In[91]:
 
 
 # проверим нет ли дублей (сильно скоррелированных столбцов)
 ds_model.corr()
 
 
-# In[823]:
+# In[92]:
 
 
 # построим тепловую карту
@@ -1035,754 +1035,10 @@ sns.heatmap(ds_model.corr(), square=True, annot=True, linewidths=0.1)
 # чем лучше образование родителей тем выше может быть score
 # отобраны 10 критериев, которые предлагается использовать для построения модели: age, absences, address, schoolsup, higher, romantic, medu, mjob, failures, goout
 
-# In[ ]:
+# In[93]:
 
 
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
+print(full)
 
 
 # In[ ]:
